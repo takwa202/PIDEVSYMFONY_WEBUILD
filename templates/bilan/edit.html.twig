@@ -1,0 +1,13 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Edit Bilan{% endblock %}
+
+{% block body %}
+    <h1>Modifier Bilan</h1>
+
+    {{ include('bilan/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('app_bilan_index') }}">retour à la liste d'affichage</a>
+
+    {{ include('bilan/_delete_form.html.twig') }}
+{% endblock %}

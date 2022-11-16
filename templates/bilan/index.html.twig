@@ -1,0 +1,39 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Bilan index{% endblock %}
+
+{% block body %}
+    <h1>Bilan</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Type</th>
+                <th>DateBilan</th>
+                <th>Conclusion</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bilan in bilans %}
+            <tr>
+
+                <td>{{ bilan.type }}</td>
+                <td>{{ bilan.dateBilan ? bilan.dateBilan|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bilan.conclusion }}</td>
+                <td>
+                    <a href="{{ path('app_bilan_show', {'idBilan': bilan.idBilan}) }}">Afficher</a>
+                    <a href="{{ path('app_bilan_edit', {'idBilan': bilan.idBilan}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bilan_new') }}">Ajouter un nouveau bilan</a>
+{% endblock %}

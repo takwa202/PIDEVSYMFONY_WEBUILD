@@ -1,0 +1,43 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}FicheSuivi index{% endblock %}
+
+{% block body %}
+    <h1>FicheSuivi index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdFiche</th>
+                <th>IdBilan</th>
+                <th>IdPatient</th>
+                <th>Diagnostic</th>
+                <th>ConsigneMedicale</th>
+                <th>NomPatient</th>
+                <th>PrénomPatient</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fiche_suivi in fiche_suivis %}
+            <tr>
+                <td>{{ fiche_suivi.idFiche }}</td>
+                <td>{{ fiche_suivi.bilan.idBilan }}</td>
+                <td>{{ fiche_suivi.idClient.idPatient }}</td>
+                <td>{{ fiche_suivi.diagnostic }}</td>
+                <td>{{ fiche_suivi.consigneMedicale }}</td>
+                <td>
+                    <a href="{{ path('app_fiche_suivi_show', {'idFiche': fiche_suivi.idFiche}) }}">show</a>
+                    <a href="{{ path('app_fiche_suivi_edit', {'idFiche': fiche_suivi.idFiche}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_fiche_suivi_new') }}">Create new</a>
+{% endblock %}

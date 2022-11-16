@@ -1,0 +1,30 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}FicheSuivi{% endblock %}
+
+{% block body %}
+    <h1>FicheSuivi</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdFiche</th>
+                <td>{{ fiche_suivi.idFiche }}</td>
+            </tr>
+            <tr>
+                <th>Diagnostic</th>
+                <td>{{ fiche_suivi.diagnostic }}</td>
+            </tr>
+            <tr>
+                <th>ConsigneMedicale</th>
+                <td>{{ fiche_suivi.consigneMedicale }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_fiche_suivi_index') }}">back to list</a>
+
+    <a href="{{ path('app_fiche_suivi_edit', {'idFiche': fiche_suivi.idFiche}) }}">edit</a>
+
+    {{ include('fiche_suivi/_delete_form.html.twig') }}
+{% endblock %}
