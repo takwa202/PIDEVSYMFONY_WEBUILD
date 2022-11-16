@@ -19,6 +19,27 @@
                 <th>ConsigneMedicale</th>
                 <td>{{ fiche_suivi.consigneMedicale }}</td>
             </tr>
+            <tr>
+                <th>NomPatient</th>
+                <td>{{ fiche_suivi.idClient.nomPatient }}</td>
+            </tr>
+            <tr>
+                <th>PrénomPatient</th>
+                <td>{{ fiche_suivi.idClient.prénomPatient }}</td>
+            </tr>
+            <tr>
+                <th>TypeBilan</th>
+                <td>{{ fiche_suivi.bilan.type}}</td>
+            </tr>
+            <tr>
+                <th>DateBilan</th>
+                <td>{{ fiche_suivi.bilan.getDateBilanstring}}</td>
+            </tr>
+            <tr>
+                <th>ConclusionBilan</th>
+                <td>{{ fiche_suivi.bilan.conclusion}}</td>
+            </tr>
+
         </tbody>
     </table>
 

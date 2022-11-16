@@ -84,5 +84,9 @@ class Bilan
         return $this;
     }
 
+    public function getDateBilanstring()
+    {
+        return $this->dateBilan->format('Y-m-d H:i:s');
+    }
 
 }
