@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,6 +29,7 @@ class LettreConfidentielle
      *
      * @ORM\Column(name="date", type="date", nullable=false)
      */
+    #[Assert\NotBlank]
     private $date;
 
     /**
@@ -35,6 +37,7 @@ class LettreConfidentielle
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
+    #[Assert\NotBlank]
     private $description;
 
     /**
@@ -42,6 +45,7 @@ class LettreConfidentielle
      *
      * @ORM\Column(name="signature", type="string", length=255, nullable=false)
      */
+    #[Assert\NotBlank]
     private $signature;
 
     /**
@@ -52,6 +56,7 @@ class LettreConfidentielle
      *   @ORM\JoinColumn(name="Id_ordonnance", referencedColumnName="Id_ordonnance")
      * })
      */
+    #[Assert\NotBlank]
     private $idOrdonnance;
 
     public function getIdconf(): ?int

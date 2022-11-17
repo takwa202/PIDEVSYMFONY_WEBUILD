@@ -25,6 +25,7 @@ class LettreConfidentielleController extends AbstractController
     public function new(Request $request, LettreConfidentielleRepository $lettreConfidentielleRepository): Response
     {
         $lettreConfidentielle = new LettreConfidentielle();
+        //$lettreConfidentielle->setDate(new \DateTime('now'));
         $form = $this->createForm(LettreConfidentielleType::class, $lettreConfidentielle);
         $form->handleRequest($request);
 
@@ -75,4 +76,7 @@ class LettreConfidentielleController extends AbstractController
 
         return $this->redirectToRoute('app_lettre_confidentielle_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
 }
