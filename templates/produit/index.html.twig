@@ -3,32 +3,44 @@
 {% block title %}Produit index{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+<div class="col-xl-12 col-lg-12">
+    <div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Liste des Produits</h4>
 
+        {# <form method="post" action="{{ path('recherche') }}">
+            <input type="text" name="search"><input type="submit" value="Recherche">
+
+        </form> #}
+
+
+
+    </div>
     <table class="table">
         <thead>
             <tr>
-                <th>IdProd</th>
-                <th>NomProd</th>
+
+                <th>Nom Produit</th>
                 <th>Discription</th>
-                <th>Quantite</th>
+                <th>Quantité</th>
                 <th>Prix</th>
-                <th>Categories</th>
+                <th>Catégories</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for produit in produits %}
             <tr>
-                <td>{{ produit.idProd }}</td>
+
                 <td>{{ produit.nomProd }}</td>
                 <td>{{ produit.discription }}</td>
                 <td>{{ produit.quantite }}</td>
                 <td>{{ produit.prix }}</td>
                 <td>{{ produit.categories }}</td>
                 <td>
-                    <a href="{{ path('app_produit_show', {'idProd': produit.idProd}) }}">show</a>
-                    <a href="{{ path('app_produit_edit', {'idProd': produit.idProd}) }}">edit</a>
+
+                    <button class="btn btn-outline-primary"><a href="{{ path('app_produit_edit', {'idProd': produit.idProd}) }}">Modifier</a></button>
+                    <button class="btn btn-outline-danger"><a href="{{ path('app_produit_delete', {'idProd': produit.idProd}) }}">Supprimer</a></button>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +51,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_produit_new') }}">Create new</a>
+        <a href="{{ path('app_produit_new') }}">Create new</a>
+
+    </div>
+</div>
 {% endblock %}

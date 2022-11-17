@@ -75,4 +75,11 @@ class ProduitController extends AbstractController
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    //public function Recherche(ProduitRepository $repository,Request $request){
+    //$data=$request->get('search');
+    //$produit=$repository->findBy(['discription'=>$data]);
+    //return $this->render('produit/index.html.twig', [
+    //'produits' => $produit]);}
 }
