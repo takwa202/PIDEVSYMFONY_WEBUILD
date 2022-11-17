@@ -32,6 +32,7 @@ class LettreConfidentielle
     #[Assert\NotBlank]
     private $date;
 
+
     /**
      * @var string
      *
@@ -72,6 +73,7 @@ class LettreConfidentielle
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+        $this->date = new \DateTime('now');
 
         return $this;
     }
