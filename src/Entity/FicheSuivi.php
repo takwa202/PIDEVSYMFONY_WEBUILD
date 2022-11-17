@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * FicheSuivi
@@ -31,8 +32,11 @@ class FicheSuivi
     /**
      * @var string|null
      *
+     *
      * @ORM\Column(name="consigne_medicale", type="string", length=255, nullable=true)
+     *
      */
+    #[Assert\NotBlank]
     private $consigneMedicale;
 
     /**

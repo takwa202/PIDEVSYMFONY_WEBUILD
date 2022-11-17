@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Bilan
@@ -20,13 +21,15 @@ class Bilan
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    #[Assert\NotBlank]
     private $idBilan;
-
     /**
      * @var string|null
      *
      * @ORM\Column(name="type", type="string", length=255, nullable=true)
+     *
      */
+
     private $type;
 
     /**
