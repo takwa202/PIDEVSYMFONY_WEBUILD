@@ -1,0 +1,31 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}La liste des medecins{% endblock %}
+
+
+{% block body %}
+    <section class="section doctors">
+
+        <div class="row shuffle-wrapper portfolio-gallery">
+            {% for m in medecin %}
+                <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat1&quot;,&quot;cat2&quot;]">
+
+                    <div class="position-relative doctor-inner-box">
+                        <div class="doctor-profile">
+                            <div class="doctor-img">
+                                <img src="{{m.getPhotoMed}}" width="200" heigth="200">
+                            </div>
+                        </div>
+                        <div class="content mt-3">
+                            <h4 class="mb-0"><a href="doctor-single.html">{{m.getNomMed()}}</a></h4>
+                            <p>{{m.getSpeciatilte()}}</p>
+                        </div>
+                        <a href="app_ajout_rendez_vous/{{m.getIdMed()}}" class="btn" style="background-color:#223a66"> prendre rendv</a>
+                    </div>
+
+                </div>
+            {% endfor %}
+
+        </div>
+    </section>
+{% endblock %}
