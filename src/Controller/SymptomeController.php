@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Symptome;
 use App\Form\SymptomeType;
 use App\Repository\SymptomeRepository;
+use phpDocumentor\Reflection\Types\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,10 +70,35 @@ class SymptomeController extends AbstractController
     #[Route('/{idSym}', name: 'app_symptome_delete', methods: ['POST'])]
     public function delete(Request $request, Symptome $symptome, SymptomeRepository $symptomeRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$symptome->getIdSym(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $symptome->getIdSym(), $request->request->get('_token'))) {
             $symptomeRepository->remove($symptome, true);
         }
 
         return $this->redirectToRoute('app_symptome_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/maladie/{idSym}', name: 'maladie')]
+    public function maladie(SymptomeRepository $repo, $idSym)
+    {
+        $symptome = $repo->find($idSym);
+        $maladie = "Consultez votre medecin";
+
+        if (($symptome->getFievre() == 1) && ($symptome->getFatigue() == 1) && ($symptome->getDouleurMusculaire() == 1) && ($symptome->getEcoulementNasal() == 1) && ($symptome->getMalDeTete() == 1) && ($symptome->getToux() == 0) && ($symptome->getMalDeGorge() == 0) && ($symptome->getEssouflement() == 0) && ($symptome->getPerteDAppetit() == 0) && ($symptome->getNausee() == 0) && ($symptome->getVomissement() == 0) && ($symptome->getAutre() == "")) {
+            $maladie = "Vous avez la grippe ";
+        } else if (($symptome->getToux() == 1) && ($symptome->getFievre() == 1) && ($symptome->getFatigue() == 1) && ($symptome->getDouleurMusculaire() == 0) && ($symptome->getMalDeGorge() == 0) && ($symptome->getEssouflement() == 0) && ($symptome->getPerteDAppetit() == 0) && ($symptome->getEcoulementNasal() == 0) && ($symptome->getNausee() == 0) && ($symptome->getVomissement() == 0) && ($symptome->getMalDeTete() == 0) && ($symptome->getAutre() == "")) {
+            $maladie = "Vous avez la bronchite ";
+        } else if (($symptome->getFievre() == 1) && ($symptome->getDouleurMusculaire() == 1) && ($symptome->getMalDeGorge() == 1) && ($symptome->getPerteDAppetit() == 1) && ($symptome->getToux() == 0) && ($symptome->getFatigue() == 0) && ($symptome->getEssouflement() == 0) && ($symptome->getEcoulementNasal() == 0) && ($symptome->getNausee() == 0) && ($symptome->getVomissement() == 0) && ($symptome->getMalDeTete() == 0) && ($symptome->getAutre() == "")) {
+            $maladie = "Vous avez l'angine ";
+        } else if (($symptome->getFievre() == 1) && ($symptome->getNausee() == 1) && ($symptome->getVomissement() == 1) && ($symptome->getAutre() == "diarrhee") && ($symptome->getToux() == 0) && ($symptome->getFatigue() == 0) && ($symptome->getDouleurMusculaire() == 0) && ($symptome->getMalDeGorge() == 0) && ($symptome->getEssouflement() == 0) && ($symptome->getPerteDAppetit() == 0) && ($symptome->getEcoulementNasal() == 0) && ($symptome->getMalDeTete() == 0)) {
+            $maladie = "Vous avez une infection intestinale ";
+        } else if (($symptome->getToux() == 1) && ($symptome->getFievre() == 1) && ($symptome->getFatigue() == 1) && ($symptome->getDouleurMusculaire() == 1) && ($symptome->getEssouflement() == 1) && ($symptome->getMalDeTete() == 1) && ($symptome->getMalDeGorge() == 0) && ($symptome->getPerteDAppetit() == 0) && ($symptome->getEcoulementNasal() == 0) && ($symptome->getNausee() == 0) && ($symptome->getVomissement() == 0) && ($symptome->getAutre() == "")) {
+            $maladie = "Vous avez la corona virus  ";
+        } else {
+            $maladie = "Consulter votre medecin ";
+        }
+
+        return $this->renderForm('symptome/maladie.html.twig', [
+            'maladie' => $maladie
+        ]);
     }
 }

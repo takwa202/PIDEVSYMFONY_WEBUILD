@@ -11,7 +11,6 @@
                 <th>IdRd</th>
                 <th>DateRd</th>
                 <th>HeureRd</th>
-                <th>JourRestant</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,9 +20,7 @@
                 <td>{{ rendez_vou.idRd }}</td>
                 <td>{{ rendez_vou.dateRd ? rendez_vou.dateRd|date('Y-m-d') : '' }}</td>
                 <td>{{ rendez_vou.heureRd }}</td>
-                <td>{{ rendez_vou.jourRestant }}</td>
                 <td>
-                    <a href="{{ path('app_rendez_vous_show', {'idRd': rendez_vou.idRd}) }}">show</a>
                     <a href="{{ path('app_rendez_vous_edit', {'idRd': rendez_vou.idRd}) }}">edit</a>
                 </td>
             </tr>

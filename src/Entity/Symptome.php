@@ -23,9 +23,9 @@ class Symptome
     private $idSym;
 
     /**
-     * @var bool|null
+     * @var int|null
      *
-     * @ORM\Column(name="fievre", type="boolean", nullable=true)
+     * @ORM\Column(name="fievre", type="integer", nullable=true)
      * @Assert\NotBlank(message="Remplissez les champs")
      */
     private $fievre;
@@ -122,7 +122,7 @@ class Symptome
         return $this->idSym;
     }
 
-    public function isFievre(): ?bool
+    public function getFievre(): ?int
     {
         return $this->fievre;
     }
