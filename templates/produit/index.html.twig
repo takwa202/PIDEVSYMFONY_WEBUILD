@@ -1,0 +1,58 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block body %}
+<div class="col-xl-12 col-lg-12">
+    <div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Liste des Produits</h4>
+
+        {# <form method="post" action="{{ path('recherche') }}">
+            <input type="text" name="search"><input type="submit" value="Recherche">
+
+        </form> #}
+
+
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Nom Produit</th>
+                <th>Discription</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Catégories</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+
+                <td>{{ produit.nomProd }}</td>
+                <td>{{ produit.discription }}</td>
+                <td>{{ produit.quantite }}</td>
+                <td>{{ produit.prix }}</td>
+                <td>{{ produit.categories }}</td>
+                <td>
+
+                    <button class="btn btn-outline-primary"><a href="{{ path('app_produit_edit', {'idProd': produit.idProd}) }}">Modifier</a></button>
+                    <button class="btn btn-outline-danger"><a href="{{ path('app_produit_delete', {'idProd': produit.idProd}) }}">Supprimer</a></button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <a href="{{ path('app_produit_new') }}">Create new</a>
+
+    </div>
+</div>
+{% endblock %}
