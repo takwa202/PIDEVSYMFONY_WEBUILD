@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Medecin;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +15,10 @@ class MedecinType extends AbstractType
         $builder
             ->add('mdpMed')
             ->add('emailMed')
-            ->add('dateNaissanceMed')
+            ->add('dateNaissanceMed',DateType::class, [
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd'
+            ])
             ->add('ageMed')
             ->add('adresseMed')
             ->add('genreMed')
@@ -23,9 +27,6 @@ class MedecinType extends AbstractType
             ->add('numTelMed')
             ->add('photoMed')
             ->add('photoDip')
-            ->add('nbRecMed')
-            ->add('nbPatient')
-            ->add('isBlocked')
             ->add('speciatilte')
         ;
     }

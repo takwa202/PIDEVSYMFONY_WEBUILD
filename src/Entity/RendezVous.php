@@ -112,6 +112,7 @@ class RendezVous
 
     public function setJourRestant(?int $jourRestant): self
     {
+        //$this->jourRestant = date_diff($this->getDateRd(),$this->getDateRd());
         $this->jourRestant = $jourRestant;
 
         return $this;
