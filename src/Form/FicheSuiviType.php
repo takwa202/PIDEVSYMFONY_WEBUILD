@@ -18,10 +18,10 @@ class FicheSuiviType extends AbstractType
             ->add('diagnostic')
             ->add('consigneMedicale')
             ->add('bilan',EntityType::class,[
-                'class'=>Bilan::class,'choice_label'=>'idBilan'
+                'class'=>Bilan::class,'choice_label'=>'type'
             ] )
             ->add('idClient',EntityType::class,[
-                'class'=>Patient::class,'choice_label'=>'idPatient'
+                'class'=>Patient::class,'choice_label'=>'nomPatient'
             ] )
         ;
     }

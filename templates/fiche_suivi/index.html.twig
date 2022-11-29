@@ -1,9 +1,9 @@
 {% extends 'back.html.twig' %}
 
-{% block title %}FicheSuivi index{% endblock %}
+{% block title %}FicheSuivi{% endblock %}
 
 {% block body %}
-    <h1>FicheSuivi index</h1>
+    <h1>Liste des FichesSuivi</h1>
 
     <table class="table">
         <thead>
@@ -36,8 +36,8 @@
                 <td>{{ fiche_suivi.bilan.conclusion}}</td>
 
                 <td>
-                    <a href="{{ path('app_fiche_suivi_show', {'idFiche': fiche_suivi.idFiche}) }}">show</a>
-                    <a href="{{ path('app_fiche_suivi_edit', {'idFiche': fiche_suivi.idFiche}) }}">edit</a>
+                    <a href="{{ path('app_fiche_suivi_show', {'idFiche': fiche_suivi.idFiche}) }}">Afficher</a>
+                    <a href="{{ path('app_fiche_suivi_edit', {'idFiche': fiche_suivi.idFiche}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -48,5 +48,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_fiche_suivi_new') }}">Create new</a>
+    <a href="{{ path('app_fiche_suivi_new') }}">Ajouter une nouvelle fiche</a>
 {% endblock %}

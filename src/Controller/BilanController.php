@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Bilan;
 use App\Form\BilanType;
 use App\Repository\BilanRepository;
+use PHPMailer\PHPMailer\PHPMailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +31,34 @@ class BilanController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $bilanRepository->save($bilan, true);
+            $mail = new PHPMailer(true);
+
+            $mail->isSMTP();// Set mailer to use SMTP
+            $mail->CharSet = "utf-8";// set charset to utf8
+            $mail->SMTPAuth = true;// Enable SMTP authentication
+            $mail->SMTPSecure = 'tls';// Enable TLS encryption, ssl also accepted
+
+            $mail->Host = 'smtp.gmail.com';// Specify main and backup SMTP servers
+            $mail->Port = 587;// TCP port to connect to
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            $mail->isHTML(true);// Set email format to HTML
+            $var = $bilan->getConclusion();
+            $mail->Username = 'mariem.tlili@esprit.tn';// SMTP username
+            $mail->Password ='213JFT8150';
+            $mail->setFrom('mariem.tlili@esprit.tn', 'Médecin');//Your application NAME and EMAIL
+            $mail->Subject = 'Conclusion de votre bilan';//Message subject
+            $mail->Body = "<h1>Votre nouveau bilan est ajouté!</h1>{$var}";// Message body
+            $mail->addAddress('mariem.tlili@esprit.tn', 'User Name');// Target email
+
+
+
+            $mail->send();
 
             return $this->redirectToRoute('app_bilan_index', [], Response::HTTP_SEE_OTHER);
         }

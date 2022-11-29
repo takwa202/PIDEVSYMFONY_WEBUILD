@@ -9,8 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
-#[Route('/fiche/suivi')]
+#[Route('/fiche')]
 class FicheSuiviController extends AbstractController
 {
     #[Route('/', name: 'app_fiche_suivi_index', methods: ['GET'])]
@@ -48,6 +49,19 @@ class FicheSuiviController extends AbstractController
         ]);
     }
 
+
+
+    #[Route('/recherche',name:"recherche")]
+    public function recherche(Request $req, EntityManagerInterface $entityManager)
+    {
+        $data = $req->get('searche');
+        $repository = $entityManager->getRepository(FicheSuivi::class);
+        $fiche_suivis = $repository->findBy(['diagnostic' => $data]);
+        return $this->render('fiche_suivi/index.html.twig', [
+            'fiche_suivis' => $fiche_suivis
+        ]);
+    }
+
     #[Route('/{idFiche}/edit', name: 'app_fiche_suivi_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, FicheSuivi $ficheSuivi, FicheSuiviRepository $ficheSuiviRepository): Response
     {
@@ -75,4 +89,5 @@ class FicheSuiviController extends AbstractController
 
         return $this->redirectToRoute('app_fiche_suivi_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

@@ -43,9 +43,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_fiche_suivi_index') }}">back to list</a>
+    <a href="{{ path('app_fiche_suivi_index') }}">retour à la liste d'affichage</a>
 
-    <a href="{{ path('app_fiche_suivi_edit', {'idFiche': fiche_suivi.idFiche}) }}">edit</a>
+    <a href="{{ path('app_fiche_suivi_edit', {'idFiche': fiche_suivi.idFiche}) }}">modifier</a>
 
     {{ include('fiche_suivi/_delete_form.html.twig') }}
 {% endblock %}

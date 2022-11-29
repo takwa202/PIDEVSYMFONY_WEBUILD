@@ -21,7 +21,7 @@ class Bilan
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    #[Assert\NotBlank]
+
     private $idBilan;
     /**
      * @var string|null
@@ -29,6 +29,7 @@ class Bilan
      * @ORM\Column(name="type", type="string", length=255, nullable=true)
      *
      */
+    #[Assert\NotBlank]
 
     private $type;
 
@@ -39,11 +40,14 @@ class Bilan
      */
     private $dateBilan;
 
+
+
     /**
      * @var string|null
      *
      * @ORM\Column(name="conclusion", type="string", length=255, nullable=true)
      */
+    #[Assert\Lenght(min:4,minMessage:"trop court")]
     private $conclusion;
 
     public function getIdBilan(): ?int
@@ -71,6 +75,8 @@ class Bilan
     public function setDateBilan(?\DateTimeInterface $dateBilan): self
     {
         $this->dateBilan = $dateBilan;
+
+
 
         return $this;
     }
