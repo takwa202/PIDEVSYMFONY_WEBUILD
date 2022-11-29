@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\RendezVous;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Types\DateType;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @extends ServiceEntityRepository<RendezVous>
@@ -39,6 +41,14 @@ class RendezVousRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function calculJourRestant(DateType $dateRv){
+        //$jour = $dateRv->
+
+
+
+    }
+
 //    /**
 //     * @return RendezVous[] Returns an array of RendezVous objects
 //     */
@@ -63,4 +73,5 @@ class RendezVousRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }

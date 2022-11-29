@@ -1,63 +1,28 @@
-{% extends 'base.html.twig' %}
+{% extends 'front.html.twig' %}
 
-{% block title %}Medecin index{% endblock %}
+{% block title %}Liste des medecins{% endblock %}
 
 {% block body %}
-    <h1>Medecin index</h1>
+    <section class="section doctors">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdMed</th>
-                <th>MdpMed</th>
-                <th>EmailMed</th>
-                <th>DateNaissanceMed</th>
-                <th>AgeMed</th>
-                <th>AdresseMed</th>
-                <th>GenreMed</th>
-                <th>NomMed</th>
-                <th>PrenomMed</th>
-                <th>NumTelMed</th>
-                <th>PhotoMed</th>
-                <th>PhotoDip</th>
-                <th>NbRecMed</th>
-                <th>NbPatient</th>
-                <th>IsBlocked</th>
-                <th>Speciatilte</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for medecin in medecins %}
-            <tr>
-                <td>{{ medecin.idMed }}</td>
-                <td>{{ medecin.mdpMed }}</td>
-                <td>{{ medecin.emailMed }}</td>
-                <td>{{ medecin.dateNaissanceMed ? medecin.dateNaissanceMed|date('Y-m-d') : '' }}</td>
-                <td>{{ medecin.ageMed }}</td>
-                <td>{{ medecin.adresseMed }}</td>
-                <td>{{ medecin.genreMed }}</td>
-                <td>{{ medecin.nomMed }}</td>
-                <td>{{ medecin.prenomMed }}</td>
-                <td>{{ medecin.numTelMed }}</td>
-                <td>{{ medecin.photoMed }}</td>
-                <td>{{ medecin.photoDip }}</td>
-                <td>{{ medecin.nbRecMed }}</td>
-                <td>{{ medecin.nbPatient }}</td>
-                <td>{{ medecin.isBlocked ? 'Yes' : 'No' }}</td>
-                <td>{{ medecin.speciatilte }}</td>
-                <td>
-                    <a href="{{ path('app_medecin_show', {'idMed': medecin.idMed}) }}">show</a>
-                    <a href="{{ path('app_medecin_edit', {'idMed': medecin.idMed}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="17">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="row shuffle-wrapper portfolio-gallery">
+            {% for medecin in medecins %}
+                <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat1&quot;,&quot;cat2&quot;]">
 
-    <a href="{{ path('app_medecin_new') }}">Create new</a>
+                    <div class="position-relative doctor-inner-box">
+                        <div class="card" style="width: 200px;">
+                            <img src="{{ medecin.photoMed }}" class="card-img-top" alt="..." height="200px" width="200px">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ medecin.nomMed }}  {{ medecin.prenomMed }}</h5>
+                                <p class="card-text"> {{ medecin.speciatilte }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+
+        </div>
+    </section>
+
 {% endblock %}
