@@ -5,11 +5,15 @@ namespace App\Controller;
 use App\Entity\Symptome;
 use App\Form\SymptomeType;
 use App\Repository\SymptomeRepository;
-use phpDocumentor\Reflection\Types\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twilio\Exceptions\ConfigurationException;
+use Twilio\Exceptions\TwilioException;
+use Twilio\Rest\Client;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\env;
+
 
 #[Route('/symptome')]
 class SymptomeController extends AbstractController
@@ -22,6 +26,10 @@ class SymptomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws ConfigurationException
+     * @throws TwilioException
+     */
     #[Route('/new', name: 'app_symptome_new', methods: ['GET', 'POST'])]
     public function new(Request $request, SymptomeRepository $symptomeRepository): Response
     {
@@ -29,9 +37,23 @@ class SymptomeController extends AbstractController
         $form = $this->createForm(SymptomeType::class, $symptome);
         $form->handleRequest($request);
 
+
+        $accountSid = 'AC83b2a6dc364ae0249a72803691ce8684' ;
+        $authToken = '7700c33ae5049336a6ec681ca7b86b7c';
+        $client = new Client($accountSid, $authToken);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $symptomeRepository->save($symptome, true);
+            $message = $client->messages
+                ->create("+21627738774", // to
+                    [
+                        "body" => "Vous avez bien enregistre votre symptomes.",
+                        "from" => "+16066199593",
+                        "statusCallback" => "http://postb.in/1234abcd"
+                    ]
+                );
 
+            print($message->sid);
             return $this->redirectToRoute('app_symptome_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -101,4 +123,17 @@ class SymptomeController extends AbstractController
             'maladie' => $maladie
         ]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
