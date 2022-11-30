@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Medecin
@@ -27,6 +28,13 @@ class Medecin
      *
      * @ORM\Column(name="mdp_med", type="string", length=255, nullable=true)
      */
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 5,
+        max: 50,
+        minMessage: 'Your first password must be at least {{ limit }} characters long',
+        maxMessage: 'Your first password cannot be longer than {{ limit }} characters',
+    )]
     private $mdpMed;
 
     /**
@@ -34,6 +42,8 @@ class Medecin
      *
      * @ORM\Column(name="email_med", type="string", length=255, nullable=true)
      */
+    #[Assert\Email( message: 'The email {{ value }} is not a valid email.')]
+
     private $emailMed;
 
     /**
@@ -41,6 +51,7 @@ class Medecin
      *
      * @ORM\Column(name="date_naissance_med", type="date", nullable=true)
      */
+    #[Assert\NotBlank]
     private $dateNaissanceMed;
 
     /**
@@ -48,6 +59,7 @@ class Medecin
      *
      * @ORM\Column(name="age_med", type="integer", nullable=true)
      */
+    #[Assert\NotBlank]
     private $ageMed;
 
     /**
@@ -55,6 +67,7 @@ class Medecin
      *
      * @ORM\Column(name="adresse_med", type="string", length=255, nullable=true)
      */
+    #[Assert\NotBlank]
     private $adresseMed;
 
     /**
@@ -62,6 +75,7 @@ class Medecin
      *
      * @ORM\Column(name="genre_med", type="string", length=255, nullable=true)
      */
+    #[Assert\NotBlank]
     private $genreMed;
 
     /**
@@ -69,6 +83,7 @@ class Medecin
      *
      * @ORM\Column(name="nom_med", type="string", length=255, nullable=true)
      */
+    #[Assert\NotBlank]
     private $nomMed;
 
     /**
@@ -76,6 +91,7 @@ class Medecin
      *
      * @ORM\Column(name="prenom_med", type="string", length=255, nullable=true)
      */
+    #[Assert\NotBlank]
     private $prenomMed;
 
     /**
@@ -83,6 +99,7 @@ class Medecin
      *
      * @ORM\Column(name="num_tel_med", type="integer", nullable=true)
      */
+    #[Assert\NotBlank]
     private $numTelMed;
 
     /**

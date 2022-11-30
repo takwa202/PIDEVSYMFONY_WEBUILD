@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Patient
  *
  * @ORM\Table(name="patient")
- * @ORM\EntityEntity(repositoryClass = "App\Repository\PatientRepository")
+ * @ORM\Entity(repositoryClass = "App\Repository\PatientRepository")
  */
 class Patient
 {
@@ -26,20 +26,23 @@ class Patient
      *
      * @ORM\Column(name="Nom_patient", type="string", length=255, nullable=true)
      */
+    #[Assert\NotBlank]
     private $nomPatient;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Prénom_patient", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Prenom_patient", type="string", length=255, nullable=true)
      */
-    private $prénomPatient;
+    #[Assert\NotBlank]
+    private $prenomPatient;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="Email_patient", type="string", length=255, nullable=true)
      */
+    #[Assert\Email( message: 'The email {{ value }} is not a valid email.')]
     private $emailPatient;
 
     /**
@@ -47,6 +50,7 @@ class Patient
      *
      * @ORM\Column(name="Adress_patient", type="string", length=255, nullable=true)
      */
+    #[Assert\NotBlank]
     private $adressPatient;
 
     /**
@@ -54,6 +58,13 @@ class Patient
      *
      * @ORM\Column(name="NumTel_patient", type="integer", nullable=true)
      */
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 8,
+        max: 8,
+        minMessage: 'Your first name must be at least 8 characters long',
+        maxMessage: 'Your first name cannot be longer than 8 characters',
+    )]
     private $numtelPatient;
 
     /**
@@ -61,6 +72,13 @@ class Patient
      *
      * @ORM\Column(name="MotDePassel_patient", type="string", length=255, nullable=true)
      */
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 5,
+        max: 50,
+        minMessage: 'Your first password must be at least {{ limit }} characters long',
+        maxMessage: 'Your first password cannot be longer than {{ limit }} characters',
+    )]
     private $motdepasselPatient;
 
     /**
@@ -68,6 +86,7 @@ class Patient
      *
      * @ORM\Column(name="Age_patient", type="integer", nullable=true)
      */
+    #[Assert\NotBlank]
     private $agePatient;
 
     /**
@@ -75,6 +94,7 @@ class Patient
      *
      * @ORM\Column(name="Gendre_patient", type="string", length=255, nullable=true)
      */
+    #[Assert\NotBlank]
     private $gendrePatient;
 
     /**
@@ -129,14 +149,14 @@ class Patient
         return $this;
     }
 
-    public function getPrénomPatient(): ?string
+    public function getPrenomPatient(): ?string
     {
-        return $this->prénomPatient;
+        return $this->prenomPatient;
     }
 
-    public function setPrénomPatient(?string $prénomPatient): self
+    public function setPrenomPatient(?string $prenomPatient): self
     {
-        $this->prénomPatient = $prénomPatient;
+        $this->prenomPatient = $prenomPatient;
 
         return $this;
     }

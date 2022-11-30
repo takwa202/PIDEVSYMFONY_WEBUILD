@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Medecin;
 use App\Form\MedecinType;
 use App\Repository\MedecinRepository;
+use Symfony\Bridge\Doctrine\Middleware\Debug\Query;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,7 +67,58 @@ class MedecinController extends AbstractController
         ]);
     }
 
+   
+    #[Route('/{idMed}/block', name: 'app_medecin_block', methods: ['GET', 'POST'])]
+    public function block(Request $request, Medecin $medecin, MedecinRepository $medecinRepository): Response
+    {   
+ 
+       $medecin->setIsBlocked(1);
+        if ($this->isCsrfTokenValid('bloc'.$medecin->getIdMed(), $request->request->get('_token'))) {
+            $medecinRepository->save($medecin, true);
+            
+            $alldata = $medecinRepository->findAll();
+            $row= $alldata;
+       
+      
+            if($alldata){
+                foreach($alldata as $data){
+                
+                    $med= new Medecin();
+                    $med=$data;
+                    $rec=$med->getNbRecMed();
+                    if($rec>10){
+                        $med->setIsBlocked(1);
+                        $medecinRepository->save($medecin,true);
+                    }
+                }
+    
+            }
+    
+        }
+
+        return $this->redirectToRoute('app_medecin_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/{idMed}/unblock', name: 'app_medecin_unblock', methods: ['GET', 'POST'])]
+    public function unblock(Request $request, Medecin $medecin, MedecinRepository $medecinRepository): Response
+    {   
+ 
+       $medecin->setIsBlocked(0);
+        if ($this->isCsrfTokenValid('bloc'.$medecin->getIdMed(), $request->request->get('_token'))) {
+            $medecinRepository->save($medecin, true);
+            
+        
+    
+            }
+    
+        
+
+        return $this->redirectToRoute('app_medecin_index', [], Response::HTTP_SEE_OTHER);
+    }
+   
+
+
     #[Route('/{idMed}', name: 'app_medecin_delete', methods: ['POST'])]
+
     public function delete(Request $request, Medecin $medecin, MedecinRepository $medecinRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$medecin->getIdMed(), $request->request->get('_token'))) {

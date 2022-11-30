@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Entity;
+use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,7 +17,7 @@ class Intervention
     /**
      * @var int
      *
-     * @ORM\Column(name="id_interv", type="integer", nullable=false)
+     * @ORM\Column(name="id_interv", type="integer", nullable=false, length=100)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -26,6 +28,7 @@ class Intervention
      *
      * @ORM\Column(name="date_inter", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
+   
     private $dateInter;
 
     /**
@@ -33,6 +36,7 @@ class Intervention
      *
      * @ORM\Column(name="descriptions", type="string", length=255, nullable=false)
      */
+    #[Assert\NotBlank]
     private $descriptions;
 
     /**
@@ -43,6 +47,7 @@ class Intervention
      *   @ORM\JoinColumn(name="id_patien", referencedColumnName="Id_patient")
      * })
      */
+ 
     private $idPatien;
 
     /**
@@ -53,12 +58,14 @@ class Intervention
      *   @ORM\JoinColumn(name="id_med", referencedColumnName="id_med")
      * })
      */
+   
     private $idMed;
 
     public function getIdInterv(): ?int
     {
         return $this->idInterv;
     }
+ 
 
     public function getDateInter()
     {

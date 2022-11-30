@@ -3,9 +3,10 @@
 {% block title %}Intervention index{% endblock %}
 
 {% block body %}
-    <h1>Intervention index</h1>
+<div style="margin-left:19%">
+    <h1>Intervention List</h1>
 
-    <table class="table">
+    <table class="table"style="width : 80%" >
         <thead>
             <tr>
                 <th>IdInterv</th>
@@ -26,8 +27,10 @@
                 <td>{{ intervention.idPatien.idPatient }}</td>
                
                 <td>
-                    <a href="{{ path('app_intervention_show', {'idInterv': intervention.idInterv}) }}">show</a>
-                    <a href="{{ path('app_intervention_edit', {'idInterv': intervention.idInterv}) }}">edit</a>
+                <button type="button" class="btn btn-outline-primary"><a href="{{ path('app_intervention_show', {'idInterv': intervention.idInterv}) }}">show</a></button>
+                <button type="button" class="btn btn-outline-primary">     <a href="{{ path('app_intervention_edit', {'idInterv': intervention.idInterv}) }}">edit</a></button>
+                    
+               
                 </td>
             </tr>
         {% else %}
@@ -39,4 +42,5 @@
     </table>
 
     <a href="{{ path('app_intervention_new') }}">Create new</a>
+ </div>
 {% endblock %}

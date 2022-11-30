@@ -11,66 +11,49 @@
                 <th>IdMed</th>
                 <td>{{ medecin.idMed }}</td>
             </tr>
-            <tr>
-                <th>MdpMed</th>
-                <td>{{ medecin.mdpMed }}</td>
-            </tr>
-            <tr>
-                <th>EmailMed</th>
-                <td>{{ medecin.emailMed }}</td>
-            </tr>
-            <tr>
-                <th>DateNaissanceMed</th>
-                <td>{{ medecin.dateNaissanceMed ? medecin.dateNaissanceMed|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>AgeMed</th>
-                <td>{{ medecin.ageMed }}</td>
-            </tr>
-            <tr>
-                <th>AdresseMed</th>
-                <td>{{ medecin.adresseMed }}</td>
-            </tr>
-            <tr>
-                <th>GenreMed</th>
-                <td>{{ medecin.genreMed }}</td>
-            </tr>
-            <tr>
-                <th>NomMed</th>
+             <tr>
+                <th>nom</th>
                 <td>{{ medecin.nomMed }}</td>
             </tr>
             <tr>
-                <th>PrenomMed</th>
+                <th>Prenom</th>
                 <td>{{ medecin.prenomMed }}</td>
             </tr>
+             <tr>
+                <th> age</th>
+                <td>{{ medecin.ageMed }}</td>
+            </tr>
             <tr>
-                <th>NumTelMed</th>
+                <th>Emai</th>
+                <td>{{ medecin.emailMed }}</td>
+            </tr>
+            <tr>
+                <th>password</th>
+                <td>{{ medecin.mdpMed }}</td>
+            </tr>
+            
+            <tr>
+                <th>Date de Naissance </th>
+                <td>{{ medecin.dateNaissanceMed ? medecin.dateNaissanceMed|date('Y-m-d') : '' }}</td>
+            </tr>
+           
+            <tr>
+                <th>Adresse</th>
+                <td>{{ medecin.adresseMed }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ medecin.genreMed }}</td>
+            </tr>
+           
+            
+            <tr>
+                <th>numero de telephone</th>
                 <td>{{ medecin.numTelMed }}</td>
             </tr>
-            <tr>
-                <th>PhotoMed</th>
-                <td>{{ medecin.photoMed }}</td>
-            </tr>
-            <tr>
-                <th>PhotoDip</th>
-                <td>{{ medecin.photoDip }}</td>
-            </tr>
-            <tr>
-                <th>NbRecMed</th>
-                <td>{{ medecin.nbRecMed }}</td>
-            </tr>
-            <tr>
-                <th>NbPatient</th>
-                <td>{{ medecin.nbPatient }}</td>
-            </tr>
-            <tr>
-                <th>IsBlocked</th>
-                <td>{{ medecin.isBlocked ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Speciatilte</th>
-                <td>{{ medecin.speciatilte }}</td>
-            </tr>
+          
+           
+            
         </tbody>
     </table>
 
@@ -78,5 +61,7 @@
 
     <a href="{{ path('app_medecin_edit', {'idMed': medecin.idMed}) }}">edit</a>
 
+    {{ include('medecin/_bloc_form.html.twig') }}
+{{ include('medecin/_unbloc_form.html.twig') }}
     {{ include('medecin/_delete_form.html.twig') }}
 {% endblock %}
