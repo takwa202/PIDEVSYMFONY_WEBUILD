@@ -39,6 +39,17 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
+    public function OrderByCategoriesQB(){
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.categories','ASC')
+            ->getQuery()->getResult();
+
+        //$em=$this->getEntityManager();
+        //$query=$em->createQuery('
+        //select p from App\Entity\Produit p order by p.categories ASC');
+        //return $query->getResult();
+    }
+
 //    /**
 //     * @return Produit[] Returns an array of Produit objects
 //     */

@@ -62,6 +62,13 @@ class Produit
      * @Assert\NotBlank
      */
     private $categories;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+
+
 
     public function getIdProd(): ?int
     {
@@ -124,6 +131,17 @@ class Produit
     public function setCategories(string $categories): self
     {
         $this->categories = $categories;
+
+        return $this;
+    }
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
