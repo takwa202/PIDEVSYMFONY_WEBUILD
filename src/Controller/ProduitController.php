@@ -35,7 +35,9 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          /*  $photo = $form->get('photo')->getData();
+
+
+          $photo = $form->get('photo')->getData();
 
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
@@ -54,8 +56,9 @@ class ProduitController extends AbstractController
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
-                $produit->setImage($newFilename)
-            }*/
+                $produit->setImage($newFilename);
+            }
+
             $produitRepository->save($produit, true);
             $mail = new PHPMailer(true);
 
@@ -152,15 +155,5 @@ class ProduitController extends AbstractController
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
 
-
-    //public function Recherche(ProduitRepository $repository,Request $request){
-    //$data=$request->get('search');
-    //$produit=$repository->findBy(['discription'=>$data]);
-    //return $this->render('produit/index.html.twig', [
-    //'produits' => $produit]);}
-   /* #[Route('/recherche')]
-    #[ParamConverter('post')]
-    #[ParamConverter('get')]*/
-
-
+    
 }
