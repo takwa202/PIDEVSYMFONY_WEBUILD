@@ -9,9 +9,9 @@
         <thead>
             <tr>
                 <th>IdOrdonnance</th>
-                <th>Dateajout</th>
-                <th>ModeUtilisation</th>
-                <th>Nomprenompatient</th>
+                <th>Date ajout</th>
+                <th>Mode Utilisation</th>
+                <th>Nom et prénom du patient</th>
                 <th>Médicaments</th>
                 <th>actions</th>
             </tr>
@@ -38,4 +38,5 @@
     </table>
 
     <a href="{{ path('app_ordonnance_new') }}">Create new</a>
+    <a href="{{ path('app_ordonnance_pdf') }}">Imprimer</a>
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\LettreConfidentielle;
 use App\Form\LettreConfidentielleType;
 use App\Repository\LettreConfidentielleRepository;
+use App\Service\PdfService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,6 +41,16 @@ class LettreConfidentielleController extends AbstractController
             'form' => $form,
         ]);
     }
+    #[Route('/pdf/{idconf}', name: 'lettre.pdf', methods: ['GET'])]
+    public function generatepdflettre(LettreConfidentielle $lettreConfidentielle = null ,PdfService $pdf)
+    {
+
+        return $this->render('lettre_confidentielle/show.html.twig', [
+            'lettre_confidentielle' => $lettreConfidentielle]);
+        $pdf->showPdfFile($html);
+    }
+
+
 
     #[Route('/{idconf}', name: 'app_lettre_confidentielle_show', methods: ['GET'])]
     public function show(LettreConfidentielle $lettreConfidentielle): Response

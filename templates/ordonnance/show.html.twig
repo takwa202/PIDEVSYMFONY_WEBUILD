@@ -25,10 +25,10 @@
             </tr>
         </tbody>
     </table>
-
+ <!--   <a href="{{ path('app_ordonnance_pdf') }}">Imprimer</a> -->
     <a href="{{ path('app_ordonnance_index') }}">back to list</a>
 
     <a href="{{ path('app_ordonnance_edit', {'idOrdonnance': ordonnance.idOrdonnance}) }}">edit</a>
-
+    {{ include('ordonnance/_pdf_form.html.twig') }}
     {{ include('ordonnance/_delete_form.html.twig') }}
 {% endblock %}

@@ -17,7 +17,7 @@ class OrdonnanceType extends AbstractType
             ->add('dateajout')
             ->add('modeUtilisation')
             ->add('nomprenompatient')
-            ->add('idProduit',EntityType::class,['class'=>Produit::class,'choice_label'=>'idProd'])
+            ->add('idProduit',EntityType::class,['class'=>Produit::class,'choice_label'=>'nomProd'])
 
         ;
     }
