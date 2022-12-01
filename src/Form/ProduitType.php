@@ -21,7 +21,7 @@ class ProduitType extends AbstractType
             ->add('categories')
 
             ->add('photo', FileType::class, [
-                'label' => 'Votre image de profil (Des fichiers images uniquement)',
+                'label' => 'Votre image de produit (Des fichiers images uniquement)',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
                 // make it optional so you don't have to re-upload the PDF file

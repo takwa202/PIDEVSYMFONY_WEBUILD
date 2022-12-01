@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Form\ContactType;
 use App\Form\ProduitType;
 use App\Repository\ProduitRepository;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -19,7 +20,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ProduitController extends AbstractController
 {
-    #[Route('/', name: 'app_produit_index', methods: ['GET'])]
+    #[Route('/prod', name: 'app_produit_index', methods: ['GET'])]
     public function index(ProduitRepository $produitRepository): Response
     {
         return $this->render('produit/index.html.twig', [
@@ -104,6 +105,28 @@ class ProduitController extends AbstractController
             'produit' => $produit,
         ]);
     }
+    //#[Route('/contact', name:'app_contact',methods: ['GET', 'POST'])]
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route ("/contact", name="app_contact")
+     */
+    public function contact(Request $request): Response
+    {
+        $produit = new Produit();
+        $form=$this->createForm(ContactType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('produit/contact.html.twig', [
+            'produit' => $produit,
+            'form'=>$form
+        ]);
+    }
+
 
     /**
      * @route("/recherche",name="recherche")
@@ -145,6 +168,8 @@ class ProduitController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{idProd}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
     {
@@ -155,5 +180,5 @@ class ProduitController extends AbstractController
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    
+
 }
