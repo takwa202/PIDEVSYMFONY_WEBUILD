@@ -6,6 +6,7 @@ use App\Entity\Patient;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class PatientType extends AbstractType
 {
@@ -19,7 +20,12 @@ class PatientType extends AbstractType
             ->add('numtelPatient')
             ->add('motdepasselPatient')
             ->add('agePatient')
-            ->add('gendrePatient');
+            ->add('gendrePatient', ChoiceType::class, [
+                'choices'  => [
+                    'FEMALE' =>  'FEMALE',
+                    'MALE' => 'MALE',
+                ],
+            ]);
             
     }
 

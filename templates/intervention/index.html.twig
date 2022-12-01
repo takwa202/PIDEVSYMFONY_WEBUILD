@@ -3,44 +3,64 @@
 {% block title %}Intervention index{% endblock %}
 
 {% block body %}
-<div style="margin-left:19%">
-    <h1>Intervention List</h1>
+    <h1>Intervention index</h1>
+  
+<div id="calendrier" style="width : 80%;">
 
-    <table class="table"style="width : 80%" >
-        <thead>
-            <tr>
-                <th>IdInterv</th>
-                <th>DateInter</th>
-                <th>Descriptions</th>
-                    <th>id patient</th>
-                <th>actions</th>
-             
-            </tr>
-        </thead>
-        <tbody>
-      
-        {% for intervention in interventions %}
-            <tr>
-                <td>{{ intervention.idInterv }}</td>
-                <td>{{intervention.getDateInterstring()}}</td>
-                <td>{{ intervention.descriptions }}</td>
-                <td>{{ intervention.idPatien.idPatient }}</td>
-               
-                <td>
-                <button type="button" class="btn btn-outline-primary"><a href="{{ path('app_intervention_show', {'idInterv': intervention.idInterv}) }}">show</a></button>
-                <button type="button" class="btn btn-outline-primary">     <a href="{{ path('app_intervention_edit', {'idInterv': intervention.idInterv}) }}">edit</a></button>
-                    
-               
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_intervention_new') }}">Create new</a>
- </div>
+
+</div>
+ <a href="{{ path('app_intervention_new') }}">Create new</a>
+
+  {% endblock %} 
+{% block javascripts %}
+
+<script>
+window.onload=()=>{
+let calendarEl= document.querySelector("#calendrier")
+let calender = new FullCalendar.Calendar(calendarEl,{
+    initialView: 'dayGridMonth',
+    headerToolbar:{
+        start:'prev,next today',
+       end:'dayGridMonth,timeGridWeek'
+    
+    },
+    events:{{data|raw}},
+    editable:true,
+     eventResizableFromStart:true,
+})
+calender.on('eventChange',(e)=>{
+
+var url= `/intervention/${e.event.id}/edit`
+
+var donnees ={
+  
+    
+    "description":e.event.extendedProps.description,
+    "start":new Date(e.event.start),
+    "end":new Date(e.event.end),
+    "backgroundcolor":e.event.backgroundcolor,
+    "bordercolor":e.event.borderColor,
+    "textcouleur":e.event.textColor,
+
+}
+var darte = new Date(e.event.start)
+ var FD  = new FormData()
+ FD.append('name','hii')
+ let xhr = new XMLHttpRequest()
+ xhr.open("GET", url, true)
+xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+console.log(JSON.stringify(FD))
+  xhr.send(JSON.stringify(darte ))
+   console.log(FD);
+
+   
+}
+)
+calender.render()
+}
+
+
+</script>
 {% endblock %}
+

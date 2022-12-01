@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Intervention;
 use App\Form\InterventionType;
+use App\Repository\CalendertableRepository;
 use App\Repository\InterventionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,12 +14,27 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/intervention')]
 class InterventionController extends AbstractController
 {
-    #[Route('/', name: 'app_intervention_index', methods: ['GET'])]
-    public function index(InterventionRepository $interventionRepository): Response
+    #[Route('/', name: 'app_main')]
+    public function index(InterventionRepository $calendar): Response
     {
-        return $this->render('intervention/index.html.twig', [
-            'interventions' => $interventionRepository->findAll(),
-        ]);
+        $events=  $calendar->findAll();
+        foreach($events as $ev){
+           $inter[]=[
+            'id'=>$ev->getIdInterv(),
+            'descriptions'=>$ev->getDescriptions(),
+            'start'=>$ev->getStart()->format('Y-m-d H:i:s'),
+            'end'=>$ev->getEnd()->format('Y-m-d H:i:s'),
+           'backgroundColor'=>$ev->getBackgroundcolor(),
+            'borderColor'=>$ev->getBordercolor(),
+            'textColor'=>$ev->getTextcolor(),
+
+
+           ]; 
+        }
+        
+      
+        $data = json_encode($inter);
+        return $this->render('intervention/index.html.twig', compact('data'));
     }
 
     #[Route('/new', name: 'app_intervention_new', methods: ['GET', 'POST'])]
@@ -31,7 +47,7 @@ class InterventionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $interventionRepository->save($intervention, true);
 
-            return $this->redirectToRoute('app_intervention_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('intervention/new.html.twig', [
@@ -48,22 +64,23 @@ class InterventionController extends AbstractController
         ]);
     }
 
-    #[Route('/{idInterv}/edit', name: 'app_intervention_edit', methods: ['GET', 'POST'])]
+    #[Route('/{idInterv}/edit', name: 'app_intervention_edit', methods: ['GET'])]
     public function edit(Request $request, Intervention $intervention, InterventionRepository $interventionRepository): Response
     {
-        $form = $this->createForm(InterventionType::class, $intervention);
+        dd($request);
+       /* $form = $this->createForm(InterventionType::class, $intervention);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $interventionRepository->save($intervention, true);
 
-            return $this->redirectToRoute('app_intervention_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('intervention/edit.html.twig', [
             'intervention' => $intervention,
             'form' => $form,
-        ]);
+        ]);*/
     }
 
     #[Route('/{idInterv}', name: 'app_intervention_delete', methods: ['POST'])]
@@ -73,6 +90,6 @@ class InterventionController extends AbstractController
             $interventionRepository->remove($intervention, true);
         }
 
-        return $this->redirectToRoute('app_intervention_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -3,13 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Pharmacien
  *
  * @ORM\Table(name="pharmacien")
- * @ORM\Entity(repositoryClass = "App\Repository\PharmacienRepository")
+ * @ORM\Entity
  */
 class Pharmacien
 {

@@ -39,9 +39,6 @@ class MedecinRepository extends ServiceEntityRepository
         }
     }
 
-   
-
-
 //    /**
 //     * @return Medecin[] Returns an array of Medecin objects
 //     */

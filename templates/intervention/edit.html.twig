@@ -3,16 +3,11 @@
 {% block title %}Edit Intervention{% endblock %}
 
 {% block body %}
-<div  style="
- 
-  margin-left:25%;
- ">>
     <h1>Edit Intervention</h1>
 
     {{ include('intervention/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_intervention_index') }}" >back to list</a>
+    <a href="{{ path('app_intervention_index') }}">back to list</a>
 
     {{ include('intervention/_delete_form.html.twig') }}
-    </div>
 {% endblock %}

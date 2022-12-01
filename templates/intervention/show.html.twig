@@ -12,13 +12,18 @@
                 <td>{{ intervention.idInterv }}</td>
             </tr>
             <tr>
-                <th>DateInter</th>
-                <td>{{intervention.getDateInterstring() }}</td>
-            </tr>
-            <tr>
                 <th>Descriptions</th>
                 <td>{{ intervention.descriptions }}</td>
             </tr>
+            <tr>
+                <th>Start</th>
+                <td>{{ intervention.start ? intervention.start|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>End</th>
+                <td>{{ intervention.end ? intervention.end|date('Y-m-d') : '' }}</td>
+            </tr>
+            
         </tbody>
     </table>
 

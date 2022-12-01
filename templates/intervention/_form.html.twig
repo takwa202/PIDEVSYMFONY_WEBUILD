@@ -1,17 +1,23 @@
-<div class="col-xl-6 col-lg-12"  >
-        <div class="card">
+
+<div class="col-xl-6 col-lg-12" >
+        <div class="card"  >
             <div class="card-header">
                 <h4 class="card-title"></h4>
             </div>
-            <div class="card-body">
+            <div class="card-body" >
                {{form_start(form,{'attr':{'class':'form-horizontal'}})}}
                 <div class="basic-form">
                <form>
             <div class="row">
-        <div class="mb-3 col-md-6">
-        <label class="form-label">date Intervention </label>
-         {{ form_widget (form.dateInter,{'attr':{'class':'form-control'}}) }}
-           {{ form_errors (form.dateInter) }}
+        <div class="mb-3 col-md-6"   >
+        <label class="form-label"> Intervention start </label>
+         {{ form_widget (form.start,{'attr':{'class':'form-control'}}) }}
+           {{ form_errors (form.start) }}
+        </div>
+        <div>
+        <label class="form-label"  > Intervention end </label>
+         {{ form_widget (form.end,{'attr':{'class':'form-control'}}) }}
+           {{ form_errors (form.end) }}
         </div>
         <div class="mb-3 col-md-6">
          <label class="form-label">descriptions </label>
@@ -28,6 +34,7 @@
          {{ form_widget (form.idMed,{'attr':{'class':'form-control'}}) }}
          {{ form_errors (form.idMed) }}
         </div>
+       
          
 
     </div>

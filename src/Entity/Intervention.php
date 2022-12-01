@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Entity;
-use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Validator\Constraints as Assert;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,38 +16,53 @@ class Intervention
     /**
      * @var int
      *
-     * @ORM\Column(name="id_interv", type="integer", nullable=false, length=100)
+     * @ORM\Column(name="id_interv", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idInterv;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_inter", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
-     */
-   
-    private $dateInter;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="descriptions", type="string", length=255, nullable=false)
      */
-    #[Assert\NotBlank]
     private $descriptions;
 
     /**
-     * @var \Patient
+     * @var \DateTime
      *
-     * @ORM\ManyToOne(targetEntity="Patient")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_patien", referencedColumnName="Id_patient")
-     * })
+     * @ORM\Column(name="start", type="date", nullable=false)
      */
- 
-    private $idPatien;
+    private $start;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="end", type="date", nullable=false)
+     */
+    private $end;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="backgroundColor", type="string", length=255, nullable=false)
+     */
+    private $backgroundcolor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="borderColor", type="string", length=255, nullable=false)
+     */
+    private $bordercolor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="textColor", type="string", length=255, nullable=false)
+     */
+    private $textcolor;
 
     /**
      * @var \Medecin
@@ -58,29 +72,21 @@ class Intervention
      *   @ORM\JoinColumn(name="id_med", referencedColumnName="id_med")
      * })
      */
-   
     private $idMed;
+
+    /**
+     * @var \Patient
+     *
+     * @ORM\ManyToOne(targetEntity="Patient")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_patien", referencedColumnName="Id_patient")
+     * })
+     */
+    private $idPatien;
 
     public function getIdInterv(): ?int
     {
         return $this->idInterv;
-    }
- 
-
-    public function getDateInter()
-    {
-        return $this->dateInter;
-       // return $this->dateInter->format('Y-m-d H:i:s');
-    }
-    public function getDateInterstring()
-    {
-        return $this->dateInter->format('Y-m-d H:i:s');
-    }
-    public function setDateInter($dateInter): self
-    {
-        $this->dateInter = $dateInter;
-
-        return $this;
     }
 
     public function getDescriptions(): ?string
@@ -95,14 +101,62 @@ class Intervention
         return $this;
     }
 
-    public function getIdPatien(): ?Patient
+    public function getStart(): ?\DateTimeInterface
     {
-        return $this->idPatien;
+        return $this->start;
     }
 
-    public function setIdPatien(?Patient $idPatien): self
+    public function setStart(\DateTimeInterface $start): self
     {
-        $this->idPatien = $idPatien;
+        $this->start = $start;
+
+        return $this;
+    }
+
+    public function getEnd(): ?\DateTimeInterface
+    {
+        return $this->end;
+    }
+
+    public function setEnd(\DateTimeInterface $end): self
+    {
+        $this->end = $end;
+
+        return $this;
+    }
+
+    public function getBackgroundcolor(): ?string
+    {
+        return $this->backgroundcolor;
+    }
+
+    public function setBackgroundcolor(string $backgroundcolor): self
+    {
+        $this->backgroundcolor = $backgroundcolor;
+
+        return $this;
+    }
+
+    public function getBordercolor(): ?string
+    {
+        return $this->bordercolor;
+    }
+
+    public function setBordercolor(string $bordercolor): self
+    {
+        $this->bordercolor = $bordercolor;
+
+        return $this;
+    }
+
+    public function getTextcolor(): ?string
+    {
+        return $this->textcolor;
+    }
+
+    public function setTextcolor(string $textcolor): self
+    {
+        $this->textcolor = $textcolor;
 
         return $this;
     }
@@ -115,6 +169,18 @@ class Intervention
     public function setIdMed(?Medecin $idMed): self
     {
         $this->idMed = $idMed;
+
+        return $this;
+    }
+
+    public function getIdPatien(): ?Patient
+    {
+        return $this->idPatien;
+    }
+
+    public function setIdPatien(?Patient $idPatien): self
+    {
+        $this->idPatien = $idPatien;
 
         return $this;
     }

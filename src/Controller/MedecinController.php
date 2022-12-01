@@ -2,14 +2,19 @@
 
 namespace App\Controller;
 
+use PHPMailer\PHPMailer\PHPMailer;
 use App\Entity\Medecin;
 use App\Form\MedecinType;
 use App\Repository\MedecinRepository;
-use Symfony\Bridge\Doctrine\Middleware\Debug\Query;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use Symfony\Component\Mailer\MailerInterface;
+
 use Symfony\Component\Routing\Annotation\Route;
+
 
 #[Route('/medecin')]
 class MedecinController extends AbstractController
@@ -23,7 +28,7 @@ class MedecinController extends AbstractController
     }
 
     #[Route('/new', name: 'app_medecin_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, MedecinRepository $medecinRepository): Response
+    public function new(Request $request, MedecinRepository $medecinRepository,MailerInterface $mailer): Response
     {
         $medecin = new Medecin();
         $form = $this->createForm(MedecinType::class, $medecin);
@@ -31,6 +36,7 @@ class MedecinController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $medecinRepository->save($medecin, true);
+           
 
             return $this->redirectToRoute('app_medecin_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -90,6 +96,37 @@ class MedecinController extends AbstractController
                         $med->setIsBlocked(1);
                         $medecinRepository->save($medecin,true);
                     }
+                    if($rec>5 && $rec<10){
+                   
+                        $mail = new PHPMailer(true);
+
+                        $mail->isSMTP();// Set mailer to use SMTP
+                        $mail->CharSet = "utf-8";// set charset to utf8
+                        $mail->SMTPAuth = true;// Enable SMTP authentication
+                        $mail->SMTPSecure = 'tls';// Enable TLS encryption, ssl also accepted
+                        
+                        $mail->Host = 'smtp.gmail.com';// Specify main and backup SMTP servers
+                        $mail->Port = 587;// TCP port to connect to
+                        $mail->SMTPOptions = array(
+                            'ssl' => array(
+                                'verify_peer' => false,
+                                'verify_peer_name' => false,
+                                'allow_self_signed' => true
+                            )
+                        );
+                        $mail->isHTML(true);// Set email format to HTML
+                        
+                        $mail->Username = 'tabibiapp8@gmail.com';// SMTP username
+                        $mail->Password ='oouqsueogwkcphyn';
+                        $mail->setFrom('tabibiapp8@gmail.com', 'Admin Evènements');//Your application NAME and EMAIL
+                        $mail->Subject = 'ALERT !';//Message subject
+                        $mail->Body = '<h1>Vous Avez plus que 5 reclamation <br> </h1>';// Message body
+                        $mail->addAddress('takwa.lassoued@esprit.tn');// Target email
+
+                        $mail->send();
+                     
+
+                    }
                 }
     
             }
@@ -98,6 +135,9 @@ class MedecinController extends AbstractController
 
         return $this->redirectToRoute('app_medecin_index', [], Response::HTTP_SEE_OTHER);
     }
+
+   
+
     #[Route('/{idMed}/unblock', name: 'app_medecin_unblock', methods: ['GET', 'POST'])]
     public function unblock(Request $request, Medecin $medecin, MedecinRepository $medecinRepository): Response
     {   
