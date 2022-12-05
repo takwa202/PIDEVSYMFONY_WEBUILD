@@ -65,11 +65,15 @@ class RendezVousController extends AbstractController
             );
             $mail->isHTML(true);// Set email format to HTML
 
+            $date=$rendezVou->getDateRd();
+            $heure=$rendezVou->getHeureRd();
+            $result = $date->format('Y-m-d');
+
             $mail->Username = 'nour.ajimi@esprit.tn';// SMTP username
             $mail->Password = '213JFT7743';
             $mail->setFrom('nour.ajimi@esprit.tn', 'Rendez Vous');//Your application NAME and EMAIL
             $mail->Subject = 'rendez vous';//Message subject
-            $mail->Body = '<h1>Vous Avez un nouveau rendez vous </h1>';// Message body
+            $mail->Body = "<h3>Vous avez un nouveau rendez vous : </h3> {$result} {$heure} ";// Message body
             $mail->addAddress('nour.ajimi@esprit.tn', 'User Name');// Target email
 
 

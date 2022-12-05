@@ -39,7 +39,7 @@ class SymptomeController extends AbstractController
 
 
         $accountSid = 'AC83b2a6dc364ae0249a72803691ce8684' ;
-        $authToken = '7700c33ae5049336a6ec681ca7b86b7c';
+        $authToken = 'a594b1a438431e7aad970264b1aae079';
         $client = new Client($accountSid, $authToken);
 
         if ($form->isSubmitted() && $form->isValid()) {
