@@ -31,27 +31,17 @@ class ProduitController extends AbstractController
             'produits' => $produitRepository->findAll(),
         ]);
     }
+
     /**
-     * @Route("/art_prix/", name="produit_par_prix")
-     * Method({"GET"})
+     * @Route("/trier",name="tricat")
      */
-    public function produitsParPrix(Request $request)
-    {
+    function trier (ProduitRepository $repo ){
+        $produits=$repo->ordrebycategories();
 
-        $priceSearch = new PriceSearch();
-        $form = $this->createForm(PriceSearchType::class,$priceSearch);
-        $form->handleRequest($request);
+        return $this->render('produit/index.html.twig', [
+            'produits' => $produits
+        ]);
 
-        $produits= [];
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $minPrice = $priceSearch->getMinPrice();
-            $maxPrice = $priceSearch->getMaxPrice();
-
-            $produits= $this->getDoctrine()->getRepository(Article::class)->findByPriceRange($minPrice,$maxPrice);
-        }
-
-        return  $this->render('produit/ProduitparPrix.html.twig',[ 'form' =>$form->createView(), 'produits' => $produits]);
     }
 
 
@@ -132,21 +122,6 @@ class ProduitController extends AbstractController
             'produit' => $produit,
         ]);
     }
-    //#[Route('/contact', name:'app_contact',methods: ['GET', 'POST'])]
-    /**
-     * @route("/rechercheDisc",name="recherche")
-     */
-   /* public function rechercheDisc(Request $req, EntityManagerInterface $entityManager)
-    {
-        $datat = $req->get('searche');
-        $repository = $entityManager->getRepository(Produit::class);
-        $produits = $repository->findBy(['discription' => $datat]);
-        return $this->render('produit/index.html.twig', [
-            'produits' => $produits
-        ]);
-    }*/
-
-
 
     /**
      * @route("/recherche",name="recherche")
@@ -162,19 +137,6 @@ class ProduitController extends AbstractController
         ]);
     }
 
-
-
-
-
-    /**
-     * @Route ("/LQB")
-     */
-   /* function OrderByCategoriesQB(ProduitRepository $repository){
-        $produit=$repository->OrderByCategoriesQB();
-        return $this->render('produit/index.html.twig', [
-            'produit' => $produit,
-        ]);
-    }*/
 
     #[Route('/{idProd}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
@@ -222,7 +184,9 @@ class ProduitController extends AbstractController
             'form'=>$form
         ]);
     }
-    #[Route('/r/search_rec', name: 'search_rec', methods: ['GET'])]
+
+
+    /*#[Route('/r/search_rec', name: 'search_rec', methods: ['GET'])]
     public function search_rec(Request $request,NormalizerInterface $Normalizer,ProduitRepository $produitRepository ): Response
     {
 
@@ -245,5 +209,29 @@ class ProduitController extends AbstractController
             return new Response($jsonc);
         }
 
-    }
+    }*/
+
+    /**
+     * @Route("/art_prix/", name="produit_par_prix")
+     * Method({"GET"})
+     */
+    /*public function produitsParPrix(Request $request)
+    {
+
+        $priceSearch = new PriceSearch();
+        $form = $this->createForm(PriceSearchType::class,$priceSearch);
+        $form->handleRequest($request);
+
+        $produits= [];
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $minPrice = $priceSearch->getMinPrice();
+            $maxPrice = $priceSearch->getMaxPrice();
+
+            $produits= $this->getDoctrine()->getRepository(Article::class)->findByPriceRange($minPrice,$maxPrice);
+        }
+
+        return  $this->render('produit/ProduitparPrix.html.twig',[ 'form' =>$form->createView(), 'produits' => $produits]);
+    }*/
+
 }

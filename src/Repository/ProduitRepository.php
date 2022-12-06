@@ -54,6 +54,14 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
+    function ordrebycategories() {
+
+        $em=$this->getEntityManager();
+        return $em->createQuery('select e from App\Entity\Produit e order by e.categories ASC')
+            ->getResult();
+
+    }
+
    // public function OrderByCategoriesQB(){
      //   return $this->createQueryBuilder('p')
        //     ->orderBy('p.categories','ASC')
@@ -66,7 +74,7 @@ class ProduitRepository extends ServiceEntityRepository
    // }
 
 
-    public function findProduitsBySujet($sujet,$status,$order){
+   /* public function findProduitsBySujet($sujet,$status,$order){
         $em = $this->getEntityManager();
         if($order=='DESC') {
             $query = $em->createQuery(
@@ -83,7 +91,7 @@ class ProduitRepository extends ServiceEntityRepository
             $query->setParameter('status', $status . '%');
         }
         return $query->getResult();
-    }
+    }*/
 
 //    /**
 //     * @return Produit[] Returns an array of Produit objects

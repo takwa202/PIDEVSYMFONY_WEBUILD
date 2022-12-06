@@ -7,9 +7,17 @@
     <div class="card">
     <div class="card-header">
         <h4 class="card-title">Liste des Produits</h4>
-        <div class="box-tools">
+        <button type="button" style="position:relative;
+                     display:inline-block;
+                     float:right;
+                        margin-left: 40px;
+                        margin-right: 40px;
+                        margin-bottom: 50px;
+                        width:150px ;
+" class="btn btn-info"> <a style="color: cadetblue" href="{{path('tricat') }}"><i class="align-middle"></i> <b>Categories tris</b> </a></button>
+    </div>
 
-            <form
+            {#  <form
                   class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
 
@@ -19,7 +27,7 @@
                 </div>
             </div>
             </form>
-            <form
+             <form
                   class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div class="input-group">
 
@@ -29,11 +37,13 @@
                     </div>
                 </div>
             </form>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary"><a class="tg-btn" href="" id="idup" >UP </a></button>
+                <button type="button" class="btn btn-secondary"><a class="tg-btn" href="" id="iddown">DOWN </a></button>
+            </div>#}
 
-            <a class="tg-btn" href="" id="idup">UP </a>
-            <a class="tg-btn" href="" id="iddown">DOWN </a>
-        </div>
-    </div>
+
+
     <table class="table table-hover" id="t">
         <thead>
             <tr>
@@ -75,14 +85,16 @@
 
     </div>
 </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+
+
+
+
+
+
+
+        {# <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     </script>
-    <script>
-
-
-
-
-
+        <script>
         $( document ).ready(function() {
             /*begin rechercher avancee multicritéres selon sujet et staus*/
             $("#divs").keyup(function(e){
@@ -210,8 +222,8 @@
 
             });
             /*end trie down selon id*/
-        });
-    </script>
+        }); </script> #}
+
 
 
 
