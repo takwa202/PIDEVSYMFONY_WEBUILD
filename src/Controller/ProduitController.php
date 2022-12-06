@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Produit;
 use App\Form\ContactType;
 use App\Form\ProduitType;
+use App\Entity\PriceSearch;
+use App\Form\PriceSearchType;
 use App\Repository\ProduitRepository;
 use PHPMailer\PHPMailer\PHPMailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,8 +16,10 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class ProduitController extends AbstractController
@@ -27,6 +31,29 @@ class ProduitController extends AbstractController
             'produits' => $produitRepository->findAll(),
         ]);
     }
+    /**
+     * @Route("/art_prix/", name="produit_par_prix")
+     * Method({"GET"})
+     */
+    public function produitsParPrix(Request $request)
+    {
+
+        $priceSearch = new PriceSearch();
+        $form = $this->createForm(PriceSearchType::class,$priceSearch);
+        $form->handleRequest($request);
+
+        $produits= [];
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $minPrice = $priceSearch->getMinPrice();
+            $maxPrice = $priceSearch->getMaxPrice();
+
+            $produits= $this->getDoctrine()->getRepository(Article::class)->findByPriceRange($minPrice,$maxPrice);
+        }
+
+        return  $this->render('produit/ProduitparPrix.html.twig',[ 'form' =>$form->createView(), 'produits' => $produits]);
+    }
+
 
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProduitRepository $produitRepository, MailerInterface $mailer, SluggerInterface $slugger): Response
@@ -82,8 +109,8 @@ class ProduitController extends AbstractController
             $mail->Username = 'mohamedkhames.mhadhbi@esprit.tn';// SMTP username
             $mail->Password ='213JMT1233';
             $mail->setFrom('mohamedkhames.mhadhbi@esprit.tn', 'Admin Evènements');//Your application NAME and EMAIL
-            $mail->Subject = 'Nouvelle Réservation De Ticket';//Message subject
-            $mail->Body = '<h1>Vous Avez Une Nouvelle Réservation Dans Un Evènement Dont Les Coordonnées sont:<br> Nom Evènement: </h1>';// Message body
+            $mail->Subject = 'Nouveau Produit';//Message subject
+            $mail->Body = '<h1>Vous Avez Un Nouveau Produit a ajouter:<br> Nom Evènement: </h1>';// Message body
             $mail->addAddress('mohamedkhames.mhadhbi@esprit.tn', 'User Name');// Target email
 
 
@@ -106,31 +133,25 @@ class ProduitController extends AbstractController
         ]);
     }
     //#[Route('/contact', name:'app_contact',methods: ['GET', 'POST'])]
-
     /**
-     * @param Request $request
-     * @return Response
-     * @Route ("/contact", name="app_contact")
+     * @route("/rechercheDisc",name="recherche")
      */
-    public function contact(Request $request): Response
+   /* public function rechercheDisc(Request $req, EntityManagerInterface $entityManager)
     {
-        $produit = new Produit();
-        $form=$this->createForm(ContactType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
-        }
-        return $this->render('produit/contact.html.twig', [
-            'produit' => $produit,
-            'form'=>$form
+        $datat = $req->get('searche');
+        $repository = $entityManager->getRepository(Produit::class);
+        $produits = $repository->findBy(['discription' => $datat]);
+        return $this->render('produit/index.html.twig', [
+            'produits' => $produits
         ]);
-    }
+    }*/
+
 
 
     /**
      * @route("/recherche",name="recherche")
      */
+
     public function recherche(Request $req, EntityManagerInterface $entityManager)
     {
         $data = $req->get('searche');
@@ -140,15 +161,20 @@ class ProduitController extends AbstractController
             'produits' => $produits
         ]);
     }
+
+
+
+
+
     /**
      * @Route ("/LQB")
      */
-    function OrderByCategoriesQB(ProduitRepository $repository){
+   /* function OrderByCategoriesQB(ProduitRepository $repository){
         $produit=$repository->OrderByCategoriesQB();
         return $this->render('produit/index.html.twig', [
             'produit' => $produit,
         ]);
-    }
+    }*/
 
     #[Route('/{idProd}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
@@ -179,6 +205,45 @@ class ProduitController extends AbstractController
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
+    /**
+     * @Route ("/contact", name="app_contact",methods={"GET","POST"})
+     */
+    public function contact(Request $request): Response
+    {
 
+        $form=$this->createForm(ContactType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
 
+            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('produit/contact.html.twig', [
+
+            'form'=>$form
+        ]);
+    }
+    #[Route('/r/search_rec', name: 'search_rec', methods: ['GET'])]
+    public function search_rec(Request $request,NormalizerInterface $Normalizer,ProduitRepository $produitRepository ): Response
+    {
+
+        $requestString = $request->get('searchValue');
+        $requestString2 = $request->get('searchValue2');
+        $requestString3 = $request->get('orderid');
+
+        dump($requestString);
+        dump($requestString2);
+        $produits = $produitRepository->findProduitsBySujet($requestString, $requestString2, $requestString3);
+        dump($produits);
+        $jsoncontentc = $Normalizer->normalize($produits, 'json', ['groups' => 'posts:read']);
+        dump($jsoncontentc);
+        $jsonc = json_encode($jsoncontentc);
+        //  dump($jsonc);
+        if ($jsonc == "[]") {
+            return new Response(null);
+        } else {
+
+            return new Response($jsonc);
+        }
+
+    }
 }

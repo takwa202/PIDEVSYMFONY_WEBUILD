@@ -21,6 +21,21 @@ class ProduitRepository extends ServiceEntityRepository
         parent::__construct($registry, Produit::class);
     }
 
+
+    public function findByPriceRange($minValue,$maxValue)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.prix >= :minVal')
+            ->setParameter('minVal', $minValue)
+            ->andWhere('a.prix <= :maxVal')
+            ->setParameter('maxVal', $maxValue)
+            ->orderBy('a.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function save(Produit $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -39,15 +54,35 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
-    public function OrderByCategoriesQB(){
-        return $this->createQueryBuilder('p')
-            ->orderBy('p.categories','ASC')
-            ->getQuery()->getResult();
+   // public function OrderByCategoriesQB(){
+     //   return $this->createQueryBuilder('p')
+       //     ->orderBy('p.categories','ASC')
+         //   ->getQuery()->getResult();
 
         //$em=$this->getEntityManager();
         //$query=$em->createQuery('
         //select p from App\Entity\Produit p order by p.categories ASC');
         //return $query->getResult();
+   // }
+
+
+    public function findProduitsBySujet($sujet,$status,$order){
+        $em = $this->getEntityManager();
+        if($order=='DESC') {
+            $query = $em->createQuery(
+                'SELECT r FROM App\Entity\Produit r   where r.nomProd like :suj  and r.discription like :status order by r.categories DESC '
+            );
+            $query->setParameter('suj', $sujet . '%');
+            $query->setParameter('status', $status . '%');
+        }
+        else{
+            $query = $em->createQuery(
+                'SELECT r FROM App\Entity\Produit r   where r.nomProd like :suj  and r.discription like :status order by r.categories ASC '
+            );
+            $query->setParameter('suj', $sujet . '%');
+            $query->setParameter('status', $status . '%');
+        }
+        return $query->getResult();
     }
 
 //    /**

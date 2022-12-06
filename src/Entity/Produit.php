@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -16,7 +17,7 @@ class Produit
 {
     /**
      * @var int
-     *
+     * @Groups ("posts:read")
      * @ORM\Column(name="id_prod", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -25,7 +26,7 @@ class Produit
 
     /**
      * @var string
-     *
+     *@Groups ("posts:read")
      * @ORM\Column(name="nom_prod", type="string", length=255, nullable=false)
      * @Assert\NotBlank
      */
@@ -33,7 +34,7 @@ class Produit
 
     /**
      * @var string
-     *
+     *@Groups ("posts:read")
      * @ORM\Column(name="discription", type="string", length=255, nullable=false)
      * @Assert\NotBlank
      */
@@ -41,7 +42,7 @@ class Produit
 
     /**
      * @var int
-     *
+     *@Groups ("posts:read")
      * @ORM\Column(name="quantite", type="integer", nullable=false)
      * @Assert\NotBlank
      */
@@ -49,7 +50,7 @@ class Produit
 
     /**
      * @var int
-     *
+     *@Groups ("posts:read")
      * @ORM\Column(name="prix", type="integer", nullable=false)
      * @Assert\NotBlank
      */
@@ -57,7 +58,7 @@ class Produit
 
     /**
      * @var string
-     *
+     *@Groups ("posts:read")
      * @ORM\Column(name="categories", type="string", length=255, nullable=false)
      * @Assert\NotBlank
      */
