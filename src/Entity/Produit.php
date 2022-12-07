@@ -7,17 +7,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 
+
 /**
  * Produit
  *
  * @ORM\Table(name="produit")
- * @ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
+ * @ORM\Entity
+ * @ORM\Entity(repositoryClass = "App\Repository\ProduitRepository")
  */
 class Produit
 {
     /**
      * @var int
-     * @Groups ("posts:read")
+     *@Groups ("posts:read")
      * @ORM\Column(name="id_prod", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -28,7 +30,6 @@ class Produit
      * @var string
      *@Groups ("posts:read")
      * @ORM\Column(name="nom_prod", type="string", length=255, nullable=false)
-     * @Assert\NotBlank
      */
     private $nomProd;
 
@@ -36,23 +37,16 @@ class Produit
      * @var string
      *@Groups ("posts:read")
      * @ORM\Column(name="discription", type="string", length=255, nullable=false)
-     * @Assert\NotBlank
      */
     private $discription;
 
-    /**
-     * @var int
-     *@Groups ("posts:read")
-     * @ORM\Column(name="quantite", type="integer", nullable=false)
-     * @Assert\NotBlank
-     */
-    private $quantite;
+
+   
 
     /**
      * @var int
      *@Groups ("posts:read")
      * @ORM\Column(name="prix", type="integer", nullable=false)
-     * @Assert\NotBlank
      */
     private $prix;
 
@@ -60,14 +54,21 @@ class Produit
      * @var string
      *@Groups ("posts:read")
      * @ORM\Column(name="categories", type="string", length=255, nullable=false)
-     * @Assert\NotBlank
      */
     private $categories;
-    /**
+    
+     /**
+     * @var int
+     *@Groups ("posts:read")
+     * @ORM\Column(name="quantite", type="integer", nullable=false)
+     * @Assert\NotBlank
+     */
+    private $quantite;
+
+    /**@Groups ("posts:read")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
-
 
 
 
@@ -100,18 +101,7 @@ class Produit
         return $this;
     }
 
-    public function getQuantite(): ?int
-    {
-        return $this->quantite;
-    }
-
-    public function setQuantite(int $quantite): self
-    {
-        $this->quantite = $quantite;
-
-        return $this;
-    }
-
+    
     public function getPrix(): ?int
     {
         return $this->prix;
@@ -143,6 +133,18 @@ class Produit
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(int $quantite): self
+    {
+        $this->quantite = $quantite;
 
         return $this;
     }
