@@ -20,10 +20,31 @@ class PatientController extends AbstractController
             'patients' => $patientRepository->findAll(),
         ]);
     }
+
+    #[Route('/back', name: 'app_patient_indexback', methods: ['GET'])]
+    public function indexback(PatientRepository $patientRepository): Response
+    {
+        return $this->render('patient/insexback.html.twig', [
+            'patients' => $patientRepository->findAll(),
+        ]);
+    }
+    #[Route('/mainpatient', name: 'app_patient_indexmain')]
+    public function mainpatient(): Response
+    {
+     
+        return $this->render('patient/homepatient.html.twig', [
+        ]);
+    }
     #[Route('/home', name: 'app_patient_home', methods: ['GET'])]
     public function index2(PatientRepository $patientRepository): Response
     {
-        return $this->render('patient/acceill_pat.html.twig', [
+        return $this->render('patient/homepatient.html.twig', [
+        ]);
+    }
+    #[Route('/homewithoutlogin', name: 'app_patient_homewithoutlogin', methods: ['GET'])]
+    public function index3(PatientRepository $patientRepository): Response
+    {
+        return $this->render('acceilwithoutlogin.html.twig', [
         ]);
     }
 
@@ -41,7 +62,7 @@ class PatientController extends AbstractController
             $patient->setMotdepasselPatient($cryptpass);
             $patientRepository->save($patient, true);
     
-            return $this->redirectToRoute('app_patient_home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_patient_homewithoutlogin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('patient/new.html.twig', [
@@ -75,7 +96,9 @@ class PatientController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    
+ 
+    
     #[Route('/{idPatient}', name: 'app_patient_delete', methods: ['POST'])]
     public function delete(Request $request, Patient $patient, PatientRepository $patientRepository): Response
     {
@@ -85,4 +108,5 @@ class PatientController extends AbstractController
 
         return $this->redirectToRoute('app_patient_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

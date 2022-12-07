@@ -1,4 +1,4 @@
-{% extends 'back.html.twig' %}
+{% extends 'acceilmed.html.twig' %}
 
 {% block title %}Patient index{% endblock %}
 
@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>IdPatient</th>
+                
                 <th>NomPatient</th>
                 <th>PrenomPatient</th>
                 <th>EmailPatient</th>
@@ -23,7 +23,7 @@
         <tbody>
         {% for patient in patients %}
             <tr>
-                <td>{{ patient.idPatient }}</td>
+           
                 <td>{{ patient.nomPatient }}</td>
                 <td>{{ patient.prenomPatient }}</td>
                 <td>{{ patient.emailPatient }}</td>
@@ -34,6 +34,10 @@
                 <td>{{ patient.gendrePatient }}</td>
                 <td>
                     <a href="{{ path('app_patient_show', {'idPatient': patient.idPatient}) }}">show</a>
+                      <!--   <a href="{{ path('app_patient_show', {'idPatient': patient.idPatient}) }}">ordonnance</a>
+                        <a href="{{ path('app_patient_show', {'idPatient': patient.idPatient}) }}">lettre</a>
+                         <a href="{{ path('app_patient_show', {'idPatient': patient.idPatient}) }}">fiche</a>
+                          <a href="{{ path('app_patient_show', {'idPatient': patient.idPatient}) }}">bilan</a> --> 
               <!--   <a href="{{ path('app_patient_edit', {'idPatient': patient.idPatient}) }}">edit</a> -->
                 </td>
             </tr>

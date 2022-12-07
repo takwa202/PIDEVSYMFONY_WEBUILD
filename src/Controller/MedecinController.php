@@ -27,6 +27,28 @@ class MedecinController extends AbstractController
         ]);
     }
 
+    #[Route('/2', name: 'app_medecin_index2', methods: ['GET'])]
+    public function index2(MedecinRepository $medecinRepository): Response
+    {
+        return $this->render('medecin/show_bfront.html.twig', [
+            'medecins' => $medecinRepository->findAll(),
+        ]);
+    }
+    #[Route('/home', name: 'app_medecin_index3', methods: ['GET'])]
+    public function home(MedecinRepository $medecinRepository): Response
+    {
+        return $this->render('acceilmed.html.twig', [
+             'controller_name' => 'MainController',
+        ]);
+    }
+    #[Route('/homemed', name: 'app_medecin_indextohome', methods: ['GET'])]
+    public function tohome(MedecinRepository $medecinRepository): Response
+    {
+        return $this->render('medecin/medhome.html.twig', [
+             'controller_name' => 'MainController',
+        ]);
+    }
+
     #[Route('/new', name: 'app_medecin_new', methods: ['GET', 'POST'])]
     public function new(Request $request, MedecinRepository $medecinRepository,MailerInterface $mailer): Response
     {

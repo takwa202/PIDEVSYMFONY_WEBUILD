@@ -105,12 +105,7 @@ class Patient
      */
     private $nbReclamation;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="image", type="string", length=255, nullable=true)
-     */
-    private $image;
+
 
     public function getIdPatient(): ?int
     {
@@ -261,7 +256,7 @@ class Patient
         return $this;
     }
 
-    public function getImage(): ?string
+    /*public function getImage(): ?string
     {
         return $this->image;
     }
@@ -271,7 +266,7 @@ class Patient
         $this->image = $image;
 
         return $this;
-    }
+    }*/
 
 
 }

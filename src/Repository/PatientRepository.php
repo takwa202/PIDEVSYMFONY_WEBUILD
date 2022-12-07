@@ -38,6 +38,13 @@ class PatientRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    function ordrebycategories() {
+
+        $em=$this->getEntityManager();
+        return $em->createQuery('select e from App\Entity\Produit e order by e.categories ASC')
+            ->getResult();
+
+    }
 
 //    /**
 //     * @return Patient[] Returns an array of Patient objects

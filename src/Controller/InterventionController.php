@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/intervention')]
 class InterventionController extends AbstractController
 {
-    #[Route('/', name: 'app_main')]
+    #[Route('/', name: 'app_maininter')]
     public function index(InterventionRepository $calendar): Response
     {
         $events=  $calendar->findAll();
@@ -36,6 +36,7 @@ class InterventionController extends AbstractController
         $data = json_encode($inter);
         return $this->render('intervention/index.html.twig', compact('data'));
     }
+    
 
     #[Route('/new', name: 'app_intervention_new', methods: ['GET', 'POST'])]
     public function new(Request $request, InterventionRepository $interventionRepository): Response
@@ -47,7 +48,7 @@ class InterventionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $interventionRepository->save($intervention, true);
 
-            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_maininter', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('intervention/new.html.twig', [
