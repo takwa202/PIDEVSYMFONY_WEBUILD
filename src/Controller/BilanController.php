@@ -53,12 +53,13 @@ class BilanController extends AbstractController
             $mail->Password ='213JFT8150';
             $mail->setFrom('mariem.tlili@esprit.tn', 'Médecin');//Your application NAME and EMAIL
             $mail->Subject = 'Conclusion de votre bilan';//Message subject
-            $mail->Body = "<h1>Votre nouveau bilan est ajouté!</h1>{$var}";// Message body
+            $mail->Body = "<h1>Votre nouveau bilan est ajouté cher patient! Vous pouvez consultez la conclusion de votre bilan.Pour toutes questions ou remarques,veuillez nous contacter.<p>LA CONCLUSION DE VOTRE BILAN EST:</p></h1><h2>{$var}</h2>";// Message body
             $mail->addAddress('mariem.tlili@esprit.tn', 'User Name');// Target email
 
 
 
             $mail->send();
+            //$this->get('Session')->getFlashBag->add('bilan','Bilan ajouté avec succés!');
 
             return $this->redirectToRoute('app_bilan_index', [], Response::HTTP_SEE_OTHER);
         }

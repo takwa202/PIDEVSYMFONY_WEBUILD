@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Patient
  *
  * @ORM\Table(name="patient")
- * @ORM\Entity(repositoryClass="App\Repository\PatientRepository")
+ * @ORM\Entity(repositoryClass = "App\Repository\PatientRepository")
  */
 class Patient
 {
@@ -31,9 +31,9 @@ class Patient
     /**
      * @var string|null
      *
-     * @ORM\Column(name="Prénom_patient", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Prenom_patient", type="string", length=255, nullable=true)
      */
-    private $prénomPatient;
+    private $prenomPatient;
 
     /**
      * @var string|null
@@ -105,6 +105,8 @@ class Patient
      */
     private $nbReclamation;
 
+
+
     public function getIdPatient(): ?int
     {
         return $this->idPatient;
@@ -122,14 +124,14 @@ class Patient
         return $this;
     }
 
-    public function getPrénomPatient(): ?string
+    public function getPrenomPatient(): ?string
     {
-        return $this->prénomPatient;
+        return $this->prenomPatient;
     }
 
-    public function setPrénomPatient(?string $prénomPatient): self
+    public function setPrenomPatient(?string $prenomPatient): self
     {
-        $this->prénomPatient = $prénomPatient;
+        $this->prenomPatient = $prenomPatient;
 
         return $this;
     }
@@ -253,6 +255,18 @@ class Patient
 
         return $this;
     }
+
+    /*public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }*/
 
 
 }

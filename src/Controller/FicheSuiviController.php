@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
+
 
 #[Route('/fiche')]
 class FicheSuiviController extends AbstractController
@@ -48,12 +51,17 @@ class FicheSuiviController extends AbstractController
             'fiche_suivi' => $ficheSuivi,
         ]);
     }
+    /**
+     * @route("/recherche",name="recherche" ,methods={"GET","POST"})
+     *@ParamConverter("FicheSuivi")
+     *
+     */
 
 
-
-    #[Route('/recherche',name:"recherche")]
+    //#[Route('/fiche/recherche',name:"recherche", methods: ['GET', 'POST'])]
     public function recherche(Request $req, EntityManagerInterface $entityManager)
     {
+       // $fiche_suivis  = new FicheSuivi();
         $data = $req->get('searche');
         $repository = $entityManager->getRepository(FicheSuivi::class);
         $fiche_suivis = $repository->findBy(['diagnostic' => $data]);
