@@ -51,7 +51,7 @@ class RendezVous
      *
      * @ORM\ManyToOne(targetEntity="Patient")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_patient", referencedColumnName="id_patient")
+     *   @ORM\JoinColumn(name="id_patient", referencedColumnName="Id_patient")
      * })
      */
     private $idPatient;

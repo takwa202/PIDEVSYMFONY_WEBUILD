@@ -1,4 +1,4 @@
-{% extends 'back.html.twig' %}
+{% extends 'acceiladmin.html.twig' %}
 
 {% block title %}Edit Medecin{% endblock %}
 
@@ -9,4 +9,5 @@
 
     <a href="{{ path('app_medecin_index') }}">back to list</a>
 
+    {{ include('medecin/_delete_form.html.twig') }}
 {% endblock %}

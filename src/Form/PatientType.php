@@ -6,6 +6,7 @@ use App\Entity\Patient;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class PatientType extends AbstractType
 {
@@ -13,18 +14,19 @@ class PatientType extends AbstractType
     {
         $builder
             ->add('nomPatient')
-            ->add('prénomPatient')
+            ->add('prenomPatient')
             ->add('emailPatient')
             ->add('adressPatient')
             ->add('numtelPatient')
             ->add('motdepasselPatient')
             ->add('agePatient')
-            ->add('gendrePatient')
-            ->add('isblokedpatient')
-            ->add('nbRdv')
-            ->add('nbAchat')
-            ->add('nbReclamation')
-        ;
+            ->add('gendrePatient', ChoiceType::class, [
+                'choices'  => [
+                    'FEMALE' =>  'FEMALE',
+                    'MALE' => 'MALE',
+                ],
+            ]);
+            
     }
 
     public function configureOptions(OptionsResolver $resolver): void

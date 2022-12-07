@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Medecin
  *
  * @ORM\Table(name="medecin")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass = "App\Repository\MedecinRepository")
  */
 class Medecin
 {
@@ -88,9 +88,9 @@ class Medecin
     /**
      * @var string|null
      *
-     * @ORM\Column(name="photo_med", type="string", length=255, nullable=true, options={"default"="https://img.freepik.com/photos-gratuite/vue-face-medecin-portant-masque-facial_23-2149609901.jpg?w=740&t=st=1668251257~exp=1668251857~hmac=17425901edd795af1900e197582b69e5f68a24e59d8ea863e4779370eb6060b6"})
+     * @ORM\Column(name="photo_med", type="string", length=255, nullable=true)
      */
-    private $photoMed = 'https://img.freepik.com/photos-gratuite/vue-face-medecin-portant-masque-facial_23-2149609901.jpg?w=740&t=st=1668251257~exp=1668251857~hmac=17425901edd795af1900e197582b69e5f68a24e59d8ea863e4779370eb6060b6';
+    private $photoMed;
 
     /**
      * @var string|null

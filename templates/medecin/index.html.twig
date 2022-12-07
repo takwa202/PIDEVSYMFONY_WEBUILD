@@ -1,28 +1,54 @@
-{% extends 'front.html.twig' %}
+{% extends 'acceiladmin.html.twig' %}
 
-{% block title %}Liste des medecins{% endblock %}
+{% block title %}Medecin index{% endblock %}
 
 {% block body %}
-    <section class="section doctors">
+    <h1>Medecin List</h1>
 
-        <div class="row shuffle-wrapper portfolio-gallery">
-            {% for medecin in medecins %}
-                <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item" data-groups="[&quot;cat1&quot;,&quot;cat2&quot;]">
+    <table class="table">
+        <thead>
+            <tr>
+              <th>IdMed</th>
+               <th>name</th>
+                  <th>prename</th>
+                  <th>age</th>
+                <th>adresse</th>
+                <th>gender</th>
+                <th>password</th>
+                <th>mail</th>
+                <th>birthday</th>
+                <th>phone number</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for medecin in medecins %}
+            <tr>
+                <td>{{ medecin.idMed }}</td>
+                  <td>{{ medecin.nomMed }}</td>
+                <td>{{ medecin.prenomMed }}</td>
+                 <td>{{ medecin.ageMed }}</td>
+                <td>{{ medecin.adresseMed }}</td>
+                <td>{{ medecin.genreMed }}</td>
+                <td>{{ medecin.mdpMed }}</td>
+                <td>{{ medecin.emailMed }}</td>
+                <td>{{ medecin.dateNaissanceMed ? medecin.dateNaissanceMed|date('Y-m-d') : '' }}</td>
+                <td>{{ medecin.numTelMed }}</td>
+           <td>
+                    <a href="{{ path('app_medecin_show', {'idMed': medecin.idMed}) }}">show</a>
+                    <a href="{{ path('app_medecin_edit', {'idMed': medecin.idMed}) }}">edit</a>
 
-                    <div class="position-relative doctor-inner-box">
-                        <div class="card" style="width: 200px;">
-                            <img src="{{ medecin.photoMed }}" class="card-img-top" alt="..." height="200px" width="200px">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ medecin.nomMed }}  {{ medecin.prenomMed }}</h5>
-                                <p class="card-text"> {{ medecin.speciatilte }}</p>
-                            </div>
-                        </div>
-                    </div>
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-                </div>
-            {% endfor %}
-
-        </div>
-    </section>
+    <a href="{{ path('app_medecin_new') }}">Create new</a>
 
 {% endblock %}
