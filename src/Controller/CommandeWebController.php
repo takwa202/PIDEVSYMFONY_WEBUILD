@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/commande-web/web')]
+#[Route('/commande/web')]
 class CommandeWebController extends AbstractController
 {
     /**
